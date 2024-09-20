@@ -6,21 +6,26 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 5f;
-    public float jumpForce = 10f;
-    public Camera mainCamera;
-
+    [SerializeField] public bool isRun;
+    [SerializeField] private Camera mainCamera;
+    //set move
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private float jumpForce = 10f;
+    [SerializeField] private int rangeMove;
+    [SerializeField] private float durationMove = 1f;
+    //set input
+    [SerializeField] private int rangeSwape = 50;
+    //set comp
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Transform transformPlayer;
-    [SerializeField] private int rangeMove;
-    [SerializeField] private int rangeSwape = 50;
-    [SerializeField] private float durationMove = 1f;
+
+
     private Vector3 touchStartPos;
     private Vector3 touchDelta;
     private float lastTouchTime;
     private int touchCount = 0;
     private PlayerPosition currenPlayerPosition;
-    bool isSwaping = false;
+    private bool isSwaping = false;
 
 
     private void Start()
@@ -32,6 +37,10 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
 
+        if (isRun)
+        {
+            rb.velocity = transform.forward * speed;
+        }
 
         if (Input.touchCount > 0)
         {
@@ -84,6 +93,13 @@ public class PlayerMovement : MonoBehaviour
         {
             //rb.AddForce(mainCamera.transform.right * speed, ForceMode.VelocityChange);
             TryChangePositionPlayer(ActionMove.PlayerGoRight);
+            ResetSwape();
+        }
+        //jump
+        if (touchDelta.y > 50)
+        {
+            //rb.AddForce(mainCamera.transform.right * speed, ForceMode.VelocityChange);
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             ResetSwape();
         }
     }
