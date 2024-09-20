@@ -1,6 +1,8 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,80 +11,156 @@ public class PlayerMovement : MonoBehaviour
     public Camera mainCamera;
 
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private Transform transformPlayer;
+    [SerializeField] private int rangeMove;
+    [SerializeField] private int rangeSwape = 50;
+    [SerializeField] private float durationMove = 1f;
     private Vector3 touchStartPos;
+    private Vector3 touchDelta;
     private float lastTouchTime;
     private int touchCount = 0;
+    private PlayerPosition currenPlayerPosition;
+    bool isSwaping = false;
+
+
+    private void Start()
+    {
+        currenPlayerPosition = PlayerPosition.MIDDLE;
+    }
 
 
     void Update()
     {
+
+
         if (Input.touchCount > 0)
         {
-            Touch touch = Input.touches[0];
-
-            switch (touch.phase)
+            if (Input.GetTouch(0).phase == TouchPhase.Began)
             {
-                case TouchPhase.Began:
-                    touchStartPos = touch.position;
-                    lastTouchTime = Time.time;
-                    touchCount++;
-                    break;
-                case TouchPhase.Moved:
-                    if (touchCount == 1)
-                    {
-
-                        Vector3 touchPosition3D = new Vector3(touch.position.x, touch.position.y, 0);
-
-                        // Преобразуйте touchStartPos в Vector3
-                        Vector3 touchStartPos3D = new Vector3(touchStartPos.x, touchStartPos.y, 0);
-
-                        // Вычислите touchDelta
-                        Vector3 touchDelta = touchPosition3D - touchStartPos3D;
-
-                        // Свайп вправо
-                        if (touchDelta.x > 50)
-                        {
-                            rb.AddForce(mainCamera.transform.right * speed, ForceMode.VelocityChange);
-                        }
-
-                        // Свайп влево
-                        if (touchDelta.x < -50)
-                        {
-                            rb.AddForce(-mainCamera.transform.right * speed, ForceMode.VelocityChange);
-                        }
-
-                        // Свайп вверх (перемещение вперед)
-                        if (touchDelta.y > 50)
-                        {
-                            rb.AddForce(mainCamera.transform.forward * speed, ForceMode.VelocityChange);
-                        }
-
-                        // Свайп вниз (перемещение назад)
-                        if (touchDelta.y < -50)
-                        {
-                            rb.AddForce(-mainCamera.transform.forward * speed, ForceMode.VelocityChange);
-                        }
-                    }
-                    break;
-                case TouchPhase.Ended:
-                    if (touchCount == 1)
-                    {
-                        // Проверка двойного касания
-                        if (Time.time - lastTouchTime < 0.3f)
-                        {
-                            // Действие
-                            Debug.Log("Действие");
-                            touchCount = 0;
-                        }
-                        else
-                        {
-                            // Прыжок
-                            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-                            touchCount = 0;
-                        }
-                    }
-                    break;
+                isSwaping = true;
+                touchStartPos = Input.GetTouch(0).position;
             }
+            else if (Input.GetTouch(0).phase == TouchPhase.Canceled || Input.GetTouch(0).phase == TouchPhase.Ended)
+            {
+                ResetSwape();
+            }
+
+           
+        }
+
+        CheckSwape();
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Debug.Log($"Input.GetKeyDown(KeyCode.A)");
+            TryChangePositionPlayer(ActionMove.PlayerGoLeft);
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            Debug.Log($"Input.GetKeyDown(KeyCode.D)");
+            TryChangePositionPlayer(ActionMove.PlayerGoRight);
         }
     }
+    private void CheckSwape()
+    {
+        touchDelta = Vector3.zero;
+
+        if (isSwaping)
+        {
+            if (Input.touchCount > 0)
+            {
+                Vector3 touchPosition3D = new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, 0);
+                touchDelta = touchPosition3D - touchStartPos;
+            }
+        }
+        // left move
+        if (touchDelta.x < -50)
+        {
+            //rb.AddForce(-mainCamera.transform.right * speed, ForceMode.VelocityChange);
+            TryChangePositionPlayer(ActionMove.PlayerGoLeft);
+            ResetSwape();
+        }
+        //right move
+        if (touchDelta.x > 50)
+        {
+            //rb.AddForce(mainCamera.transform.right * speed, ForceMode.VelocityChange);
+            TryChangePositionPlayer(ActionMove.PlayerGoRight);
+            ResetSwape();
+        }
+    }
+    private void ResetSwape()
+    {
+        isSwaping = false;
+        touchStartPos = Vector3.zero;
+        touchDelta = Vector3.zero;
+    }
+
+
+    private bool TryChangePositionPlayer(ActionMove directMove)
+    {
+        bool isMove = false;
+        //left move
+        if (directMove == ActionMove.PlayerGoLeft && !(currenPlayerPosition == PlayerPosition.LEFT) && !isMove)
+        {       
+            MoveToNewPosition(-rangeMove);
+            if(currenPlayerPosition == PlayerPosition.MIDDLE)
+            {
+                currenPlayerPosition = PlayerPosition.LEFT;
+            }
+            if (currenPlayerPosition == PlayerPosition.RIGHT)
+            {
+                currenPlayerPosition = PlayerPosition.MIDDLE;
+            }
+            isMove = true;
+            Debug.Log($"left move current pos={currenPlayerPosition}");
+
+            return true;
+        }
+        //right move
+        if (directMove == ActionMove.PlayerGoRight && !(currenPlayerPosition == PlayerPosition.RIGHT) && !isMove)
+        {
+            MoveToNewPosition(rangeMove);
+            if (currenPlayerPosition == PlayerPosition.MIDDLE)
+            {
+                currenPlayerPosition = PlayerPosition.RIGHT;
+            }
+            if (currenPlayerPosition == PlayerPosition.LEFT)
+            {
+                currenPlayerPosition = PlayerPosition.MIDDLE;
+            }
+            isMove = true;
+            Debug.Log($"right move current pos={currenPlayerPosition}");
+
+            return true;
+        }
+        else
+        {
+            Debug.Log("False move");
+            return false;
+        }
+    }
+
+    public void MoveToNewPosition(int deltaX)
+    {
+        transformPlayer.DOMove(CalculateTargetPositionX(transformPlayer, deltaX), durationMove);
+    }
+
+    public Vector3 CalculateTargetPositionX(Transform currentPosition, int deltaX)
+    {
+        Vector3 targetPos = new Vector3(currentPosition.position.x + deltaX, currentPosition.position.y, currentPosition.position.z);
+        Debug.Log("TargetPosition: " + targetPos);
+        return targetPos;
+    }
+}
+
+public enum PlayerPosition
+{
+    LEFT,
+    MIDDLE,
+    RIGHT
+}
+
+public enum ActionMove
+{
+    PlayerGoLeft,
+    PlayerGoRight
 }
