@@ -429,14 +429,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57393f7afddb4114a959de07083735e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  jumpForce: 3
+  isRun: 0
   mainCamera: {fileID: 500858398}
+  speed: 1
+  jumpForce: 10
+  rangeMove: 1
+  durationMove: 1
+  rangeSwape: 50
   rb: {fileID: 549218308}
   transformPlayer: {fileID: 549218302}
-  rangeMove: 1
-  rangeSwape: 50
-  durationMove: 1
 --- !u!114 &549218307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -721,7 +722,7 @@ GameObject:
   - component: {fileID: 1945480214}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

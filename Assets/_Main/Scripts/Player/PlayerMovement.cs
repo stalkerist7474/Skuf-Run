@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private int touchCount = 0;
     private PlayerPosition currenPlayerPosition;
     private bool isSwaping = false;
+    private bool isJump = false;
 
 
     private void Start()
@@ -96,10 +97,11 @@ public class PlayerMovement : MonoBehaviour
             ResetSwape();
         }
         //jump
-        if (touchDelta.y > 50)
+        if (touchDelta.y > 50 && !isJump)
         {
             //rb.AddForce(mainCamera.transform.right * speed, ForceMode.VelocityChange);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isJump = true;
             ResetSwape();
         }
     }
@@ -110,7 +112,13 @@ public class PlayerMovement : MonoBehaviour
         touchDelta = Vector3.zero;
     }
 
-
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isJump = false;
+        }
+    }
     private bool TryChangePositionPlayer(ActionMove directMove)
     {
         bool isMove = false;
