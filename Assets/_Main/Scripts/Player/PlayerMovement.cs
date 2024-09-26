@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int rangeMove;
     [SerializeField] private float durationMove = 1f;
     //set input
-    [SerializeField] private int rangeSwape = 50;
+    //[SerializeField] private int rangeSwape = 50;
     //set comp
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Transform transformPlayer;
@@ -22,8 +22,8 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 touchStartPos;
     private Vector3 touchDelta;
-    private float lastTouchTime;
-    private int touchCount = 0;
+    //private float lastTouchTime;
+    //private int touchCount = 0;
     private PlayerPosition currenPlayerPosition;
     private bool isSwaping = false;
     private bool isJump = false;

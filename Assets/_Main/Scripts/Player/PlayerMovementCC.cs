@@ -1,11 +1,15 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.Timeline.TimelineAsset;
 
 public class PlayerMovementCC : MonoBehaviour
 {
     [SerializeField] private CharacterController characterController;
+    [SerializeField] private Transform PlayerPos;
     [SerializeField] private float gravity = -9.8f;
     [SerializeField] private int multiGravity = 3;
     [SerializeField] private float jumpSpeed = 10;
@@ -19,6 +23,8 @@ public class PlayerMovementCC : MonoBehaviour
     [SerializeField,ReadOnly] private int currentLane = 1; // Текущая полоса (0 - левая, 1 - середина, 2 - правая)
 
     private bool isMoving;
+    private Vector3 previousPosition;
+    private int previousLane;
 
     private void Update()
     {
@@ -68,13 +74,15 @@ public class PlayerMovementCC : MonoBehaviour
     private void MoveLeft()
     {
         if (isMoving)
-            return;  
+            return;
 
-             
+        previousPosition = PlayerPos.position;
+        previousLane = currentLane;
+
         currentLane--;
         sumVectorX = -laneSpeedChange;
         isMoving = true;
-        //transform.position = new Vector3(transform.position.x - laneWidth, transform.position.y, transform.position.z);
+        
         Debug.Log("MoveLeft");
     }
 
@@ -83,11 +91,15 @@ public class PlayerMovementCC : MonoBehaviour
     {
         if (isMoving)
             return;
+
+        previousPosition = PlayerPos.position;
+        previousLane = currentLane;
+
         Debug.Log("MoveRight");
         currentLane++;
         sumVectorX = laneSpeedChange;
         isMoving = true;
-        //transform.position = new Vector3(transform.position.x + laneWidth, transform.position.y, transform.position.z);
+        
     }
 
     private void CheckStopMove()
@@ -109,6 +121,25 @@ public class PlayerMovementCC : MonoBehaviour
                 sumVectorX = 0f;
                 isMoving = false;
             }
+        }
+    }
+
+
+    //Hit on object
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+
+        if (isMoving && hit.gameObject.CompareTag("Obstacle")) 
+        {
+
+            PlayerPos.DOMove(previousPosition, 0.5f);
+
+            currentLane = previousLane;
+
+            sumVectorX = 0f;
+            isMoving = false;
+            
+            Debug.Log("Obstacle hit");
         }
     }
 }
