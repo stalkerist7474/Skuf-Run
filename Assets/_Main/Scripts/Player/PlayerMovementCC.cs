@@ -20,7 +20,7 @@ public class PlayerMovementCC : MonoBehaviour
 
     [SerializeField] private float laneSpeedChange = 2f;
     [SerializeField] private float laneWidth = 10f;
-    [SerializeField,ReadOnly] private int currentLane = 1; // Текущая полоса (0 - левая, 1 - середина, 2 - правая)
+    [SerializeField,ReadOnly] private int currentLane = 1; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (0 - пїЅпїЅпїЅпїЅпїЅ, 1 - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, 2 - пїЅпїЅпїЅпїЅпїЅпїЅ)
 
     private bool isMoving;
     private Vector3 previousPosition;
@@ -44,7 +44,7 @@ public class PlayerMovementCC : MonoBehaviour
         //Vector3 direction = new Vector3(h * speed, sumVectorY * Time.deltaTime, 1 * speed);
         //characterController.Move(direction);
 
-        // Обработка ввода
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         if (Input.GetKeyDown(KeyCode.A) && currentLane >= 1)
         {
             MoveLeft();
@@ -54,18 +54,22 @@ public class PlayerMovementCC : MonoBehaviour
             MoveRight();
         }
 
-        // Прыжок
+        // пїЅпїЅпїЅпїЅпїЅпїЅ
         if (characterController.isGrounded && Input.GetKeyDown(KeyCode.W))
         {
             sumVectorY = jumpSpeed;
         }
 
-        // Гравитация
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         sumVectorY += gravity * Time.deltaTime * multiGravity;
 
-        // Движение вперед
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         Vector3 direction = new Vector3(sumVectorX, sumVectorY * Time.deltaTime, 1 * speed);
         characterController.Move(direction);
+        if(sumVectorY < -20 || characterController.isGrounded)
+        {
+            sumVectorY = -0.05f;
+        }
 
         CheckStopMove();
     }
@@ -86,7 +90,7 @@ public class PlayerMovementCC : MonoBehaviour
         Debug.Log("MoveLeft");
     }
 
-    // Движение вправо
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     private void MoveRight()
     {
         if (isMoving)
