@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class PlayerModel : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+
+
+
+    private void OnTriggerExit(Collider other)
     {
-        
+        if (other.gameObject.CompareTag("TrigerPassSection"))
+        {
+            Debug.Log("SectionComplete");
+            other.gameObject.GetComponentInParent<LevelSection>().SwitchOffSection();
+            EventBus.RaiseEvent(new PassSectionPlayerEvent(other.gameObject.GetComponentInParent<LevelSection>().PointSpawnNextSection));
+        }
     }
 }
