@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.Timeline.TimelineAsset;
 
-public class PlayerMovementCC : MonoBehaviour
+public class PlayerMovementCC : MonoBehaviour //+ event input
 {
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Transform PlayerPos;
@@ -26,24 +26,27 @@ public class PlayerMovementCC : MonoBehaviour
     private Vector3 previousPosition;
     private int previousLane;
 
+
+    private float zoneLeftX;
+    private float zoneMiddleX;
+    private float zoneRightX;
+
+    
+
+
+    private void Start()
+    {
+        zoneMiddleX = transform.position.x;
+
+        zoneLeftX = zoneMiddleX - laneWidth;
+
+        zoneRightX = zoneMiddleX + laneWidth;
+    }
+
+
+
     private void Update()
     {
-        //float h = Input.GetAxis("Horizontal");
-        //float v = Input.GetAxis("Vertical");
-
-        //if (characterController.isGrounded)
-        //{
-        //    sumVectorY = 0;
-        //    if (Input.GetKeyDown(KeyCode.W))
-        //    {
-        //        sumVectorY = jumpSpeed;
-        //    }
-        //}
-        //sumVectorY += gravity * Time.deltaTime * multiGravity;
-
-        //Vector3 direction = new Vector3(h * speed, sumVectorY * Time.deltaTime, 1 * speed);
-        //characterController.Move(direction);
-
         // ��������� �����
         if (Input.GetKeyDown(KeyCode.A) && currentLane >= 1)
         {
@@ -110,20 +113,31 @@ public class PlayerMovementCC : MonoBehaviour
     {
         if (isMoving)
         {
-            if (currentLane == 0 && transform.position.x <= 0f)
+
+            // midle -> left
+            if (currentLane == 0 && transform.position.x <= zoneLeftX)
             {
                 sumVectorX = 0f;
                 isMoving = false;
             }
-            else if (currentLane == 1 && Mathf.Abs(transform.position.x) <= 0.1f)
+            //right -> midle
+            else if (currentLane == 1 && Mathf.Abs(transform.position.x) <= zoneMiddleX && previousLane == 2)
             {
                 sumVectorX = 0f;
                 isMoving = false;
             }
-            else if (currentLane == 2 && transform.position.x >= laneWidth)
+            //left -> midle
+            else if (currentLane == 1 && Mathf.Abs(transform.position.x) >= zoneMiddleX && previousLane == 0)
             {
                 sumVectorX = 0f;
                 isMoving = false;
+            }
+            // midle -> right
+            else if (currentLane == 2 && transform.position.x >= zoneRightX)
+            {
+                sumVectorX = 0f;
+                isMoving = false;
+
             }
         }
     }
