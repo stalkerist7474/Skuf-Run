@@ -7,6 +7,7 @@ public class LevelSection : MonoBehaviour
     [SerializeField] private Transform pointSpawnNextSection;
     [SerializeField] private GameObject gameObjectSection;
     [SerializeField] private float delayOff;
+    [SerializeField] private TypeChankRoad typeChank;
 
     public Transform PointSpawnNextSection { get => pointSpawnNextSection; set => pointSpawnNextSection = value; }
 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6910339781477182900}
   - component: {fileID: 2342837448299157078}
   m_Layer: 0
-  m_Name: LevelSection
+  m_Name: LevelSectionFreeWay_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,6 +52,7 @@ MonoBehaviour:
   pointSpawnNextSection: {fileID: 5878680541013044111}
   gameObjectSection: {fileID: 1700100583314221232}
   delayOff: 3
+  typeChank: 1
 --- !u!1 &1751565982204821802
 GameObject:
   m_ObjectHideFlags: 0

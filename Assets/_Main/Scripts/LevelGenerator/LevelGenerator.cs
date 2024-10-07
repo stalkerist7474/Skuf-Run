@@ -7,7 +7,10 @@ public class LevelGenerator : MonoBehaviour,
 {
 
     [SerializeField] private GameObject TestPrefabRoad;
+    [SerializeField] private int rateOneCorridorTwoBlockWay;
+    [SerializeField] private int FreeWay;
 
+    private int countChank;
     private void Subscribe() 
     { 
         EventBus.RegisterTo(this as IEventSubscriber<PassSectionPlayerEvent>);
@@ -22,6 +25,7 @@ public class LevelGenerator : MonoBehaviour,
     private void Start()
     {
         Subscribe();
+        countChank = 0;
     }
 
 
