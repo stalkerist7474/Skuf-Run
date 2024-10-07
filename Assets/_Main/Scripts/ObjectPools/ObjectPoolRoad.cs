@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoolMobsForLevel : MonoBehaviour
+public class ObjectPoolRoad : MonoBehaviour
 {
     /// <summary>
 	/// Get the next available preloaded Object.
@@ -86,7 +86,7 @@ public class PoolMobsForLevel : MonoBehaviour
 
     // INTERNAL SYSTEM ----------------------------------------------------------------------------------------------------------------------------------------
 
-    static private PoolMobsForLevel instance;
+    static private ObjectPoolRoad instance;
 
     public GameObject[] objectsToPreload = new GameObject[0];
     public int[] objectsToPreloadTimes = new int[0];

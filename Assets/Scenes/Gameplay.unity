@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 209762769}
   - component: {fileID: 209762770}
+  - component: {fileID: 209762771}
   m_Layer: 0
   m_Name: LevelGenerator
   m_TagString: Untagged
@@ -169,8 +170,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TestPrefabRoad: {fileID: 1700100583314221232, guid: c99df75eac1c1c7469fe28968da95e3d,
     type: 3}
-  rateOneCorridorTwoBlockWay: 0
-  FreeWay: 0
+  rateOneCorridorTwoBlockWay: 10
+  FreeWay: 3
+  poolRoad: {fileID: 209762771}
+  listOneCorridorTwoBlockWay:
+  - {fileID: 3497545765377891686, guid: ae50cca749efa8741ae759a140d6786e, type: 3}
+  listFreeWay:
+  - {fileID: 8277011714584993039, guid: 09250e33f7d51d044a9db549c8ff8e68, type: 3}
+  - {fileID: 4312155251923533390, guid: 9ad024a999a4c4940965209c5b14181a, type: 3}
+  - {fileID: 4306810253492093937, guid: f8555c69ce527934e97d8c14ab9ca1e0, type: 3}
+  - {fileID: 1700100583314221232, guid: c99df75eac1c1c7469fe28968da95e3d, type: 3}
+  listTwoRampOneBlockWay:
+  - {fileID: 8790540650457539323, guid: 9509b42e0ede4fb4aa0c1e85fa816410, type: 3}
+  listOneRampTwoBlockWay:
+  - {fileID: 2249404909685532989, guid: 6bbafa8fee8a4cf44890a21429bd2282, type: 3}
+--- !u!114 &209762771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 209762768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45897dda8750fe241b45072d699345d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsToPreload:
+  - {fileID: 8277011714584993039, guid: 09250e33f7d51d044a9db549c8ff8e68, type: 3}
+  - {fileID: 4312155251923533390, guid: 9ad024a999a4c4940965209c5b14181a, type: 3}
+  - {fileID: 4306810253492093937, guid: f8555c69ce527934e97d8c14ab9ca1e0, type: 3}
+  - {fileID: 1700100583314221232, guid: c99df75eac1c1c7469fe28968da95e3d, type: 3}
+  - {fileID: 2249404909685532989, guid: 6bbafa8fee8a4cf44890a21429bd2282, type: 3}
+  - {fileID: 3497545765377891686, guid: ae50cca749efa8741ae759a140d6786e, type: 3}
+  - {fileID: 8790540650457539323, guid: 9509b42e0ede4fb4aa0c1e85fa816410, type: 3}
+  objectsToPreloadTimes: 04000000040000000400000004000000040000000400000004000000
+  hideObjectsInHierarchy: 0
 --- !u!1 &500858396
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,6 +579,11 @@ PrefabInstance:
     - target: {fileID: 1700100583314221232, guid: c99df75eac1c1c7469fe28968da95e3d,
         type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2342837448299157078, guid: c99df75eac1c1c7469fe28968da95e3d,
+        type: 3}
+      propertyPath: isStartChank
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6910339781477182900, guid: c99df75eac1c1c7469fe28968da95e3d,
