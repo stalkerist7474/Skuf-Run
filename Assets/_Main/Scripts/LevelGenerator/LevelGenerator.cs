@@ -49,10 +49,13 @@ public class LevelGenerator : MonoBehaviour,
 
     private void SpawnNewChank(Vector3 posSpawn)
     {
-        if (countChank == 0 && nextTypeChank == TypeChankRoad.OneCorridorTwoBlockWay)
+        //sdvig spawn new chank after starts chanks = 210
+        Vector3 posWithOffset = new Vector3(posSpawn.x, posSpawn.y, (posSpawn.z + 210));
+
+        if (countChank == 0)
         {
             GameObject newChank = TryGetGameObjectChank(nextTypeChank);
-            InitNewChank(newChank, posSpawn);
+            InitNewChank(newChank, posWithOffset);
             CounterUpdate();
             UpdateNextChankType();
             return;
@@ -62,7 +65,7 @@ public class LevelGenerator : MonoBehaviour,
         if (countChank > 0)
         {
             GameObject newChank = TryGetGameObjectChank(nextTypeChank);
-            InitNewChank(newChank, posSpawn);
+            InitNewChank(newChank, posWithOffset);
             CounterUpdate();
             UpdateNextChankType();
         }

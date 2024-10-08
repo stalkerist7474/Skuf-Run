@@ -9,7 +9,7 @@ public class LevelSection : MonoBehaviour
     [SerializeField] private float delayOff;
     [SerializeField] private TypeChankRoad typeChank;
 
-    [SerializeField] private bool isStartChank= false;
+    //[SerializeField] private bool isStartChank= false;
 
     public Transform PointSpawnNextSection { get => pointSpawnNextSection; set => pointSpawnNextSection = value; }
 
