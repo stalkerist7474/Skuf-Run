@@ -58,9 +58,10 @@ public class PlayerMovementCC : MonoBehaviour //+ event input
         }
 
         // ������
-        if (characterController.isGrounded && Input.GetKeyDown(KeyCode.W))
+        if (characterController.isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             sumVectorY = jumpSpeed;
+            Debug.Log("Jump");
         }
 
         // ����������
@@ -69,9 +70,9 @@ public class PlayerMovementCC : MonoBehaviour //+ event input
         // �������� ������
         Vector3 direction = new Vector3(sumVectorX, sumVectorY * Time.deltaTime, 1 * speed);
         characterController.Move(direction);
-        if(sumVectorY < -20 || characterController.isGrounded)
+        if(sumVectorY < -10 || characterController.isGrounded)
         {
-            sumVectorY = -0.05f;
+            sumVectorY = -0.001f;
         }
 
         CheckStopMove();
