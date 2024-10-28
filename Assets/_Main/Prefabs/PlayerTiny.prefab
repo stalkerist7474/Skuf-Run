@@ -817,9 +817,9 @@ GameObject:
   - component: {fileID: 6164875272417652700}
   - component: {fileID: 5569322464524208586}
   - component: {fileID: 8689742755010323454}
-  - component: {fileID: 356182103398073137}
   - component: {fileID: 6510248439843266887}
   - component: {fileID: 2382447563348444512}
+  - component: {fileID: 2554888700888176232}
   m_Layer: 0
   m_Name: PlayerTiny
   m_TagString: Untagged
@@ -891,18 +891,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.94, z: 0}
---- !u!114 &356182103398073137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6464248776472541735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2437516fc8494747aee5a8cfe349dbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6510248439843266887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -937,6 +925,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rangeSwape: 50
+--- !u!114 &2554888700888176232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6464248776472541735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76d8d90a89952254e8af8c5d704fa1c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7297050305802895033
 GameObject:
   m_ObjectHideFlags: 0

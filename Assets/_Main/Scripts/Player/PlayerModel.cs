@@ -5,10 +5,20 @@ using UnityEngine;
 public class PlayerModel : MonoBehaviour
 {
 
+    // skin
+
+    // value res
 
 
 
-    private void OnTriggerExit(Collider other)
+
+
+
+
+
+
+    //methods interact object and triggers
+    public void OnTriggerSpawnNewzone(Collider other)
     {
         if (other.gameObject.CompareTag("TrigerPassSection"))
         {
@@ -17,4 +27,6 @@ public class PlayerModel : MonoBehaviour
             EventBus.RaiseEvent(new PassSectionPlayerEvent(other.gameObject.GetComponentInParent<LevelSection>().PointSpawnNextSection));
         }
     }
+
+
 }
