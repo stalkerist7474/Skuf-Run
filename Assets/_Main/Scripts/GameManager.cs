@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using R3;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class GameManager : MonoBehaviour
     private GameState previusGameState;
     private GameState currentGameState;
     //event change Game state action
+
+    //Unirx
+    public readonly Subject<GameState> NewGameStateEventRx = new Subject<GameState>();
+
 
 
     private void Awake()
@@ -59,7 +64,10 @@ public class GameManager : MonoBehaviour
     {
         previusGameState = currentGameState;
         currentGameState = newState;
-        EventBus.RaiseEvent(new NewGameStateEvent(previusGameState, currentGameState));
+
+        //EventBus.RaiseEvent(new NewGameStateEvent(previusGameState, currentGameState));
+
+        NewGameStateEventRx.OnNext(newState);
     }
 
     public void StartWorld()
@@ -72,10 +80,7 @@ public class GameManager : MonoBehaviour
     {
         if (scene.name == "Play")
         {
-            // ������� ��������� ������� currentWorld �� ����� "Play"
-            //GameObject worldObject = Instantiate(currentWorld.gameObject, Vector3.zero, Quaternion.identity);
-            // �������� ����� Start() � ���������� �������
-            //worldObject.GetComponent<World>().Start();
+
         }
     }
 }
