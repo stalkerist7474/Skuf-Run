@@ -13,11 +13,11 @@ public class PlayerModel : MonoBehaviour
 
 
 
+    
 
 
 
-
-    //methods interact object and triggers
+    //methods triggers load zone
     public void OnTriggerSpawnNewzone(Collider other)
     {
         if (other.gameObject.CompareTag("TrigerPassSection"))
@@ -28,5 +28,18 @@ public class PlayerModel : MonoBehaviour
         }
     }
 
+    //methods interact object
+    public void OnTriggerInteractObject(Collider other)
+    {
+        if (other.gameObject.CompareTag("Obstacle"))
+        {
+            Debug.Log("Obstacle");
+            
+        }
+        if (other.gameObject.CompareTag("ObstacleDie"))
+        {
+            Debug.Log("ObstacleDie");
 
+        }
+    }
 }

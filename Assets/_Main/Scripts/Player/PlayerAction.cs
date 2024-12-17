@@ -15,17 +15,15 @@ public class PlayerAction : MonoBehaviour
         this.playerModel = playerModel;
     }
 
-
-
-
-
-
-
-
     //new zone load
     private void OnTriggerExit(Collider other)
     {
         //spawn new zone
         this.playerModel.OnTriggerSpawnNewzone(other);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        this.playerModel.OnTriggerInteractObject(other);
     }
 }
