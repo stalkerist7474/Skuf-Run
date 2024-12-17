@@ -1,5 +1,7 @@
+using R3;
 using System.Collections;
 using UnityEngine;
+using Zenject;
 
 public class SaveManager : IGameSystem
 {
@@ -7,6 +9,9 @@ public class SaveManager : IGameSystem
     private ISaveSystem _saveSystem;
     public SaveData MyData;
     [SerializeField] private SaveData _myDefaultData;
+
+    //[SerializeField] private GameManager _gameManager;
+   // private CompositeDisposable _compositeDisposable = new CompositeDisposable();
 
     public SaveData MyDefaultData => _myDefaultData;
 
@@ -24,6 +29,24 @@ public class SaveManager : IGameSystem
         }
         _saveSystem = new JsonSaveSystem(); //���� ��� ������ ������ ���������� �����������
         MyData = _saveSystem.Load();
+
+        //UniRX
+
+        //_gameManager.NewGameStateEventRx
+        //    .Subscribe(currentGameState => ReactEvent(currentGameState))
+        //    .AddTo(_compositeDisposable);
+    }
+
+    //[Inject]
+    //public void Construct(GameManager gameManager)
+    //{
+    //    this._gameManager = gameManager;
+    //}
+
+
+    private void ReactEvent(GameState state)
+    {
+        Debug.Log(state.ToString());
     }
 
     public void Save()
@@ -49,5 +72,10 @@ public class SaveManager : IGameSystem
     public override void Activate()
     {
         this.gameObject.SetActive(true);
+    }
+
+    private void OnDestroy()
+    {
+        //_compositeDisposable.Dispose();
     }
 }

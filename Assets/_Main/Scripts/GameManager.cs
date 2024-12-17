@@ -2,16 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using R3;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, IEventSubscriber<NewGameStateEvent>
 {
 
     public static GameManager Instance;
-
-    //[SerializeField] private World currentWorld;
-    private GameState previusGameState;
+    private GameState previusGameState = GameState.Boot;
     private GameState currentGameState;
-    //event change Game state action
+
+    public GameState CurrentGameState { get => currentGameState; }
+
+    //Unirx
+    //public readonly Subject<GameState> NewGameStateEventRx = new Subject<GameState>();
+
 
 
     private void Awake()
@@ -27,27 +31,42 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
+
+    public void Subscribe()
+    {
+        EventBus.RegisterTo(this as IEventSubscriber<NewGameStateEvent>);
+    }
+    public void Unsubscribe()
+    {
+        EventBus.UnregisterFrom(this as IEventSubscriber<NewGameStateEvent>);
+    }
+    public void OnEvent(NewGameStateEvent eventName)
+    {
+        ChangeGameState(eventName.NewState);
+    }
     private void Start()
     {
-        // ������������� �� ������� �������� �����
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        Subscribe();
     }
 
+    //обработка нового GameState и выполнение необходимых методов
     private void ChangeGameState(GameState newGameState)
     {
+        previusGameState = currentGameState;
         currentGameState = newGameState;
+
         switch (currentGameState)
         {
             case GameState.Menu:
-                SendEventChangeState(currentGameState);
+                StartMainMenu();
                 break;
 
             case GameState.Boot:
-                SendEventChangeState(currentGameState);
+                //
                 break;
 
             case GameState.Gameplay:
-                SendEventChangeState(currentGameState);
+                StartGamePlay();
                 break;
 
             default:
@@ -55,28 +74,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void SendEventChangeState(GameState newState)
-    {
-        previusGameState = currentGameState;
-        currentGameState = newState;
-        EventBus.RaiseEvent(new NewGameStateEvent(previusGameState, currentGameState));
-    }
-
-    public void StartWorld()
+    private void StartGamePlay()
     {
         SceneManager.LoadSceneAsync(Scenes.GAMEPLAY);
-        ChangeGameState(GameState.Gameplay);
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    private void StartMainMenu()
     {
-        if (scene.name == "Play")
-        {
-            // ������� ��������� ������� currentWorld �� ����� "Play"
-            //GameObject worldObject = Instantiate(currentWorld.gameObject, Vector3.zero, Quaternion.identity);
-            // �������� ����� Start() � ���������� �������
-            //worldObject.GetComponent<World>().Start();
-        }
+        SceneManager.LoadSceneAsync(Scenes.MENU);
+    }
+
+    public void ChangeGameStateWithoutLoadScene(GameState newGameState)
+    {
+        previusGameState = currentGameState;
+        currentGameState = newGameState;
+    }
+
+    private void OnDestroy()
+    {
+        Unsubscribe();
     }
 }
 

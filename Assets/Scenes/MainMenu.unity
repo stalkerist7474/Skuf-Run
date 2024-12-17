@@ -279,7 +279,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0.00021362, y: 119.81824}
+  m_AnchoredPosition: {x: 0.00021362, y: 119.81836}
   m_SizeDelta: {x: 1080, y: 240.23657}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &109929666
@@ -810,8 +810,9 @@ GameObject:
   m_Component:
   - component: {fileID: 736249944}
   - component: {fileID: 736249945}
+  - component: {fileID: 736249946}
   m_Layer: 0
-  m_Name: System
+  m_Name: SceneContext
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -863,6 +864,19 @@ MonoBehaviour:
   _parentNewObjectsUnderSceneContext: 0
   _contractNames: []
   _parentContractNames: []
+--- !u!114 &736249946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736249943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 316b4dcba8e54b241919e7e09f3db222, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameStateToOn: 1
 --- !u!1 &837370568
 GameObject:
   m_ObjectHideFlags: 0
@@ -908,6 +922,7 @@ GameObject:
   - component: {fileID: 908357285}
   - component: {fileID: 908357284}
   - component: {fileID: 908357283}
+  - component: {fileID: 908357286}
   m_Layer: 5
   m_Name: PlayButton
   m_TagString: Untagged
@@ -979,9 +994,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1115496047}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: StartWorld
+      - m_Target: {fileID: 908357286}
+        m_TargetAssemblyTypeName: ButtonChangeGameState, Assembly-CSharp
+        m_MethodName: ChangeGameState
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1029,50 +1044,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 908357281}
   m_CullTransparentMesh: 1
---- !u!1 &1115496045
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1115496046}
-  - component: {fileID: 1115496047}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1115496046
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1115496045}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 529.9997, y: 2478.1716, z: 16.483803}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1115496047
+--- !u!114 &908357286
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1115496045}
+  m_GameObject: {fileID: 908357281}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ef906f4c4d4d9f4ea1a08e10ede8af8, type: 3}
+  m_Script: {fileID: 11500000, guid: e4ad76841d59d0f4ea71fdf8d48898ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameStateButton: 2
 --- !u!1 &1389907898
 GameObject:
   m_ObjectHideFlags: 0
@@ -1894,5 +1878,4 @@ SceneRoots:
   - {fileID: 1655808806}
   - {fileID: 837370569}
   - {fileID: 627625516}
-  - {fileID: 1115496046}
   - {fileID: 736249944}
