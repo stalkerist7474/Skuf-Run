@@ -10,8 +10,8 @@ public class SaveManager : IGameSystem
     public SaveData MyData;
     [SerializeField] private SaveData _myDefaultData;
 
-    [SerializeField] private GameManager _gameManager;
-    private CompositeDisposable _compositeDisposable = new CompositeDisposable();
+    //[SerializeField] private GameManager _gameManager;
+   // private CompositeDisposable _compositeDisposable = new CompositeDisposable();
 
     public SaveData MyDefaultData => _myDefaultData;
 
@@ -32,16 +32,16 @@ public class SaveManager : IGameSystem
 
         //UniRX
 
-        _gameManager.NewGameStateEventRx
-            .Subscribe(currentGameState => ReactEvent(currentGameState))
-            .AddTo(_compositeDisposable);
+        //_gameManager.NewGameStateEventRx
+        //    .Subscribe(currentGameState => ReactEvent(currentGameState))
+        //    .AddTo(_compositeDisposable);
     }
 
-    [Inject]
-    public void Construct(GameManager gameManager)
-    {
-        this._gameManager = gameManager;
-    }
+    //[Inject]
+    //public void Construct(GameManager gameManager)
+    //{
+    //    this._gameManager = gameManager;
+    //}
 
 
     private void ReactEvent(GameState state)
@@ -76,6 +76,6 @@ public class SaveManager : IGameSystem
 
     private void OnDestroy()
     {
-        _compositeDisposable.Dispose();
+        //_compositeDisposable.Dispose();
     }
 }

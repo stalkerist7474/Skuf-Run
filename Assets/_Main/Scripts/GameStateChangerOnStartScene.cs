@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class PlayButton : MonoBehaviour
+public class GameStateChangerOnStartScene : MonoBehaviour
 {
-
+    [SerializeField] private GameState gameStateToOn;
     [SerializeField] private GameManager gameManager;
-
-
+    private void Start()
+    {
+        ChangeGameState();
+    }
 
     [Inject]
     public void Construct(GameManager gameManager)
@@ -17,8 +19,9 @@ public class PlayButton : MonoBehaviour
     }
 
 
-    public void PressPlay()
+    public void ChangeGameState()
     {
-        this.gameManager.StartWorld();
+        gameManager.ChangeGameStateWithoutLoadScene(gameStateToOn);
     }
+
 }
