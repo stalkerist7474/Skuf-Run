@@ -91,7 +91,7 @@ public class PlayerMovementCC : MonoBehaviour //+ event input
         sumVectorX = -laneSpeedChange;
         isMoving = true;
         
-        Debug.Log("MoveLeft");
+        //Debug.Log("MoveLeft");
     }
 
     // �������� ������
@@ -103,7 +103,7 @@ public class PlayerMovementCC : MonoBehaviour //+ event input
         previousPosition = PlayerPos.position;
         previousLane = currentLane;
 
-        Debug.Log("MoveRight");
+        //Debug.Log("MoveRight");
         currentLane++;
         sumVectorX = laneSpeedChange;
         isMoving = true;
