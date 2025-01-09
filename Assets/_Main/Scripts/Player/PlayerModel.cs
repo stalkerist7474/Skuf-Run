@@ -2,6 +2,7 @@ using DG.Tweening.Core.Easing;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using R3;
 
 public class PlayerModel : MonoBehaviour, IEventSubscriber<NewGameStateEvent>
 {
@@ -13,6 +14,11 @@ public class PlayerModel : MonoBehaviour, IEventSubscriber<NewGameStateEvent>
     // skin
 
     // value res
+
+    public readonly Subject<int> InitHealthBarNewLevel = new Subject<int>();
+    public readonly Subject<int> RemoveHeart = new Subject<int>();
+
+    public int MaxCountHealth { get => maxCountHealth; }
 
     public void Subscribe()
     {
@@ -28,6 +34,8 @@ public class PlayerModel : MonoBehaviour, IEventSubscriber<NewGameStateEvent>
         if (eventName.NewState == GameState.Gameplay)
         {
             ResetHealth();
+            InitHealthBarNewLevel.OnNext(maxCountHealth);
+            Debug.Log("NewGameStateEvent PlayerModel");
         }
     }
 
@@ -39,6 +47,7 @@ public class PlayerModel : MonoBehaviour, IEventSubscriber<NewGameStateEvent>
     private void RemoveHealth(int valueRemove)
     {
         currentHealth -= valueRemove;
+        RemoveHeart.OnNext(1);
         CheckHealth();
         Debug.Log("RemoveHealth");
     }
