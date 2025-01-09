@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.26853788, g: 0.46448386, b: 0.61465526, a: 1}
+  m_IndirectSpecularColor: {r: 0.26852533, g: 0.46447325, b: 0.6146784, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -715,6 +715,7 @@ GameObject:
   - component: {fileID: 209762769}
   - component: {fileID: 209762770}
   - component: {fileID: 209762771}
+  - component: {fileID: 209762772}
   m_Layer: 0
   m_Name: LevelGenerator
   m_TagString: Untagged
@@ -787,6 +788,21 @@ MonoBehaviour:
   - {fileID: 8790540650457539323, guid: 9509b42e0ede4fb4aa0c1e85fa816410, type: 3}
   objectsToPreloadTimes: 04000000040000000400000004000000040000000a0000000a000000
   hideObjectsInHierarchy: 0
+--- !u!114 &209762772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 209762768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e2cd8484a84b5d468f30e102e4b99b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Material:
+  - {fileID: 2100000, guid: c8e0240e9684da34f8e797593fcd659e, type: 2}
+  - {fileID: 2100000, guid: cddd9c7dde581a74fb9bb815606b1218, type: 2}
 --- !u!1001 &287167133
 PrefabInstance:
   m_ObjectHideFlags: 0
