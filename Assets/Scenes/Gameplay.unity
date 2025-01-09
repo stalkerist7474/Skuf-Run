@@ -803,6 +803,11 @@ MonoBehaviour:
   Material:
   - {fileID: 2100000, guid: c8e0240e9684da34f8e797593fcd659e, type: 2}
   - {fileID: 2100000, guid: cddd9c7dde581a74fb9bb815606b1218, type: 2}
+  stepChange: 0.00002
+  horizontalMin: -0.0015
+  horizontalMax: 0.0015
+  verticalMin: 0
+  verticalMax: 0
 --- !u!1001 &287167133
 PrefabInstance:
   m_ObjectHideFlags: 0
