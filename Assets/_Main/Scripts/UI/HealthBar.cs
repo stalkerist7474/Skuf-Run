@@ -22,7 +22,7 @@ public class HealthBar : MonoBehaviour
         //    .Subscribe(maxCountHealth => Init(maxCountHealth))
         //    .AddTo(disposable);
 
-        playerModel.RemoveHeart
+        playerModel.RemoveHeartEvent
             .Subscribe(count => RemoveHearth(count))
             .AddTo(disposable);
         Debug.Log("AwakeHearth");

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using R3;
+using System;
 
 public class PlayerModel : MonoBehaviour, IEventSubscriber<NewGameStateEvent>
 {
@@ -15,8 +16,11 @@ public class PlayerModel : MonoBehaviour, IEventSubscriber<NewGameStateEvent>
 
     // value res
 
-    public readonly Subject<int> ShowLoseScreen = new Subject<int>();
-    public readonly Subject<int> RemoveHeart = new Subject<int>();
+    public readonly Subject<int> ShowLoseScreenEvent = new Subject<int>();
+    public readonly Subject<int> UpdateScoreEvent = new Subject<int>();
+    public readonly Subject<int> RemoveHeartEvent = new Subject<int>();
+
+    private CompositeDisposable disposable = new CompositeDisposable();
 
     public int MaxCountHealth { get => maxCountHealth; }
 
@@ -34,6 +38,8 @@ public class PlayerModel : MonoBehaviour, IEventSubscriber<NewGameStateEvent>
         if (eventName.NewState == GameState.Gameplay)
         {
             ResetHealth();
+            ResetScore();
+            StartCoroutine(StartScoreAddCor());
             Debug.Log("NewGameStateEvent PlayerModel");
         }
     }
@@ -43,10 +49,13 @@ public class PlayerModel : MonoBehaviour, IEventSubscriber<NewGameStateEvent>
         Subscribe();
     }
 
+    #region HealtLogic
+
+
     private void RemoveHealth(int valueRemove)
     {
         currentHealth -= valueRemove;
-        RemoveHeart.OnNext(1);
+        RemoveHeartEvent.OnNext(1);
         CheckHealth();
         Debug.Log("RemoveHealth");
     }
@@ -73,10 +82,14 @@ public class PlayerModel : MonoBehaviour, IEventSubscriber<NewGameStateEvent>
     private void Die()
     {
         Debug.Log("YOU Die");
-        ShowLoseScreen.OnNext(currentScore);
-        //EventBus.RaiseEvent(new NewGameStateEvent(GameState.Gameplay, GameState.Menu));
+        ShowLoseScreenEvent.OnNext(currentScore);
+        ScoreResult();
     }
 
+    #endregion
+
+
+    #region Interact block
 
 
     //methods triggers load zone
@@ -106,8 +119,59 @@ public class PlayerModel : MonoBehaviour, IEventSubscriber<NewGameStateEvent>
         }
     }
 
+    #endregion
+
+    #region ScoreLogic
+
+    //private void StartScoreAdd()
+    //{
+    //    ResetScore();
+    //    float intervalAdd = 0.2f;
+    //    Observable
+    //        .Interval(TimeSpan.FromSeconds(intervalAdd))
+    //        .Subscribe(_ => AddScore())
+    //        .AddTo(disposable);
+
+    //}
+
+    private IEnumerator StartScoreAddCor()
+    {
+        float intervalAdd = 0.2f;
+        while (true)
+        {
+            yield return new WaitForSeconds(intervalAdd);
+            AddScore(); 
+        }
+    }
+
+    private void AddScore()
+    {
+        currentScore += 1;
+        UpdateScoreEvent.OnNext(currentScore);
+    }
+
+    private void ResetScore()
+    {
+        currentScore = 0;
+        UpdateScoreEvent.OnNext(currentScore);
+    }
+
+    private void ScoreResult()
+    {
+        StopAllCoroutines();
+        if (currentScore > SaveManager.Instance.MyData.MaxScore)
+        {
+            SaveManager.Instance.MyData.MaxScore = currentScore;
+            SaveManager.Instance.Save();
+        }
+        
+    }
+
+    #endregion
+
     private void OnDestroy()
     {
         Unsubscribe();
+        disposable.Dispose();
     }
 }

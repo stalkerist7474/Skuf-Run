@@ -10,9 +10,6 @@ public class SaveManager : IGameSystem
     public SaveData MyData;
     [SerializeField] private SaveData _myDefaultData;
 
-    //[SerializeField] private GameManager _gameManager;
-   // private CompositeDisposable _compositeDisposable = new CompositeDisposable();
-
     public SaveData MyDefaultData => _myDefaultData;
 
     private void Awake()
@@ -30,18 +27,9 @@ public class SaveManager : IGameSystem
         _saveSystem = new JsonSaveSystem(); //���� ��� ������ ������ ���������� �����������
         MyData = _saveSystem.Load();
 
-        //UniRX
-
-        //_gameManager.NewGameStateEventRx
-        //    .Subscribe(currentGameState => ReactEvent(currentGameState))
-        //    .AddTo(_compositeDisposable);
     }
 
-    //[Inject]
-    //public void Construct(GameManager gameManager)
-    //{
-    //    this._gameManager = gameManager;
-    //}
+
 
 
     private void ReactEvent(GameState state)
@@ -57,9 +45,6 @@ public class SaveManager : IGameSystem
     public void Load()
     {
         MyData = _saveSystem.Load();
-
-        //if (RemoteConfigManager.Instance != null && RemoteConfigManager.Instance.IsReady)
-        //    MyData.RemoveAds = (bool)RemoteConfigManager.Instance?.GetRemoteBool("RemoveAdsGoogle");
         Save();
     }
 
@@ -74,8 +59,4 @@ public class SaveManager : IGameSystem
         this.gameObject.SetActive(true);
     }
 
-    private void OnDestroy()
-    {
-        //_compositeDisposable.Dispose();
-    }
 }
