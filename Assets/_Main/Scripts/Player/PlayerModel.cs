@@ -9,13 +9,13 @@ public class PlayerModel : MonoBehaviour, IEventSubscriber<NewGameStateEvent>
     [SerializeField] private int maxCountHealth = 3;
 
     private int currentHealth;
-    private int currentScore;
+    private int currentScore = 10;
     private int currentCoin;
     // skin
 
     // value res
 
-    public readonly Subject<int> InitHealthBarNewLevel = new Subject<int>();
+    public readonly Subject<int> ShowLoseScreen = new Subject<int>();
     public readonly Subject<int> RemoveHeart = new Subject<int>();
 
     public int MaxCountHealth { get => maxCountHealth; }
@@ -34,7 +34,6 @@ public class PlayerModel : MonoBehaviour, IEventSubscriber<NewGameStateEvent>
         if (eventName.NewState == GameState.Gameplay)
         {
             ResetHealth();
-            InitHealthBarNewLevel.OnNext(maxCountHealth);
             Debug.Log("NewGameStateEvent PlayerModel");
         }
     }
@@ -74,7 +73,8 @@ public class PlayerModel : MonoBehaviour, IEventSubscriber<NewGameStateEvent>
     private void Die()
     {
         Debug.Log("YOU Die");
-        EventBus.RaiseEvent(new NewGameStateEvent(GameState.Gameplay, GameState.Menu));
+        ShowLoseScreen.OnNext(currentScore);
+        //EventBus.RaiseEvent(new NewGameStateEvent(GameState.Gameplay, GameState.Menu));
     }
 
 

@@ -224,6 +224,7 @@ GameObject:
   - component: {fileID: 6581953628225878022}
   - component: {fileID: 1278721218961533363}
   - component: {fileID: 1412367547484670384}
+  - component: {fileID: 7423282009227184460}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -332,7 +333,45 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1278721218961533363}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5992548119745639664}
+        m_TargetAssemblyTypeName: LoseScreen, Assembly-CSharp
+        m_MethodName: Hide
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7423282009227184460}
+        m_TargetAssemblyTypeName: ButtonChangeGameState, Assembly-CSharp
+        m_MethodName: ChangeGameState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7423282009227184460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4738514288589400390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4ad76841d59d0f4ea71fdf8d48898ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameStateButton: 1
+  gameManager: {fileID: 0}
 --- !u!1 &5647631703133219206
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,6 +385,7 @@ GameObject:
   - component: {fileID: 6543707857975594963}
   - component: {fileID: 4220747567036986992}
   - component: {fileID: 756312334628054618}
+  - component: {fileID: 5992548119745639664}
   m_Layer: 5
   m_Name: CanvasPopUp
   m_TagString: Untagged
@@ -444,10 +484,24 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5647631703133219206}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!114 &5992548119745639664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5647631703133219206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e9ce0fcc57dcd47bbd8a07bc76b811, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CanvasGroup: {fileID: 756312334628054618}
+  scoreText: {fileID: 3522704989520856746}
 --- !u!1 &5671242568858110981
 GameObject:
   m_ObjectHideFlags: 0
