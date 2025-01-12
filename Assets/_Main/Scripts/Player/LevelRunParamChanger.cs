@@ -6,20 +6,24 @@ public class LevelRunParamChanger : MonoBehaviour
 {
     [SerializeField] private List<Material> Material;
     [Space]
-    [SerializeField] private float stepChange = 0.000002f;
+    [SerializeField] private double stepChange = 0.000002f;
+    [SerializeField] private float delayChange = 0.2f;
+    [SerializeField] private float delayChangeSpeedMove = 0.1f;
+    [SerializeField] private float MaxSpeedPlayer = 1f;
     [Space]
     [Space]
-    [SerializeField] private float horizontalMin;
-    [SerializeField] private float horizontalMax;
+    [SerializeField] private double horizontalMin;
+    [SerializeField] private double horizontalMax;
     [Space]
     [Space]
-    [SerializeField] private float verticalMin;
-    [SerializeField] private float verticalMax;
+    [SerializeField] private double verticalMin;
+    [SerializeField] private double verticalMax;
 
     private bool directionHorizontal = true;
+    private bool directionVertical = true;
 
-    private float horizontalCurrent;
-    private float verticalCurrent;
+    private double horizontalCurrent;
+    private double verticalCurrent;
 
 
     private void Start()
@@ -31,13 +35,15 @@ public class LevelRunParamChanger : MonoBehaviour
         Material[1].SetFloat("_BackWayPower", 0.0007f);
 
         StartCoroutine(StartChangeHorizontal());
+        StartCoroutine(StartChangeVertical());
+        StartCoroutine(StartChangePlayerSpeedMove());
     }
 
-    private void ChangeParamShaider(string nameParam, float value)
+    private void ChangeParamShaider(string nameParam, double value)
     {
         foreach (Material mat in Material)
         {
-            mat.SetFloat(nameParam, value);
+            mat.SetFloat(nameParam, (float)value);
         }
     }
 
@@ -69,7 +75,48 @@ public class LevelRunParamChanger : MonoBehaviour
             
             ChangeParamShaider("_SideWayPower", horizontalCurrent);
 
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(delayChange);
+        }
+    }
+
+    IEnumerator StartChangeVertical()
+    {
+        while (true)
+        {
+            if (directionVertical)
+            {
+                verticalCurrent += stepChange;
+                if (verticalCurrent >= verticalMax)
+                {
+                    verticalCurrent = verticalMax;
+                    directionVertical = false;
+                }
+            }
+
+            else
+            {
+                verticalCurrent -= stepChange;
+                if (verticalCurrent <= verticalMin)
+                {
+                    verticalCurrent = verticalMin;
+                    directionVertical = true;
+                }
+            }
+
+
+            ChangeParamShaider("_BackWayPower", verticalCurrent);
+
+            yield return new WaitForSeconds(delayChange);
+        }
+    }
+    IEnumerator StartChangePlayerSpeedMove()
+    {
+        while (PlayerMovementCC.Instance.Speed < MaxSpeedPlayer)
+        {
+
+            PlayerMovementCC.Instance.Speed += 0.01f;
+
+            yield return new WaitForSeconds(delayChangeSpeedMove);
         }
     }
 }

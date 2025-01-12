@@ -8,6 +8,7 @@ using static UnityEngine.Timeline.TimelineAsset;
 
 public class PlayerMovementCC : MonoBehaviour //+ event input
 {
+    public static PlayerMovementCC Instance;
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Transform PlayerPos;
     [SerializeField] private float gravity = -9.8f;
@@ -31,8 +32,7 @@ public class PlayerMovementCC : MonoBehaviour //+ event input
     private float zoneMiddleX;
     private float zoneRightX;
 
-    
-
+    public float Speed { get => speed; set => speed = value; }
 
     private void Start()
     {
@@ -41,6 +41,16 @@ public class PlayerMovementCC : MonoBehaviour //+ event input
         zoneLeftX = zoneMiddleX - laneWidth;
 
         zoneRightX = zoneMiddleX + laneWidth;
+
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        else
+        {
+            Instance = this;
+        }
     }
 
 
@@ -68,7 +78,7 @@ public class PlayerMovementCC : MonoBehaviour //+ event input
         sumVectorY += gravity * Time.deltaTime * multiGravity;
 
         // �������� ������
-        Vector3 direction = new Vector3(sumVectorX, sumVectorY * Time.deltaTime, 1 * speed);
+        Vector3 direction = new Vector3(sumVectorX, sumVectorY * Time.deltaTime, 1 * Speed);
         characterController.Move(direction);
         if(sumVectorY < -10 || characterController.isGrounded)
         {
