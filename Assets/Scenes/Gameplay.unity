@@ -805,6 +805,8 @@ MonoBehaviour:
   - {fileID: 2100000, guid: cddd9c7dde581a74fb9bb815606b1218, type: 2}
   stepChange: 0.000002
   delayChange: 0.2
+  delayChangeSpeedMove: 0.5
+  MaxSpeedPlayer: 0.5
   horizontalMin: -0.0015
   horizontalMax: 0.0015
   verticalMin: -0.0015
