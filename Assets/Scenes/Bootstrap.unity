@@ -369,8 +369,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MyData:
     Coins: 200
+    MaxScore: 0
   _myDefaultData:
     Coins: 200
+    MaxScore: 0
 --- !u!1001 &946379618
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -383,6 +385,46 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UIStartGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 4771003136082388499, guid: daccac643198f6943bab13dcf4f0d658,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4771003136082388499, guid: daccac643198f6943bab13dcf4f0d658,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4771003136082388499, guid: daccac643198f6943bab13dcf4f0d658,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4771003136082388499, guid: daccac643198f6943bab13dcf4f0d658,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4771003136082388499, guid: daccac643198f6943bab13dcf4f0d658,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 3503.0298
+      objectReference: {fileID: 0}
+    - target: {fileID: 4771003136082388499, guid: daccac643198f6943bab13dcf4f0d658,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1951.3872
+      objectReference: {fileID: 0}
+    - target: {fileID: 4771003136082388499, guid: daccac643198f6943bab13dcf4f0d658,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4771003136082388499, guid: daccac643198f6943bab13dcf4f0d658,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.000011444
       objectReference: {fileID: 0}
     - target: {fileID: 5807304249031756994, guid: daccac643198f6943bab13dcf4f0d658,
         type: 3}
