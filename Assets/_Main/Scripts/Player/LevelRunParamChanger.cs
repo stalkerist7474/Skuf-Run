@@ -23,17 +23,11 @@ public class LevelRunParamChanger : MonoBehaviour
     private bool directionVertical = true;
 
     private double horizontalCurrent;
-    private double verticalCurrent;
+    private double verticalCurrent = -0.0007f;
 
 
     private void Start()
     {
-        Material[0].SetFloat("_SideWayPower", 0.0005f);
-        Material[0].SetFloat("_BackWayPower", 0.0007f);
-
-        Material[1].SetFloat("_SideWayPower", 0.0005f);
-        Material[1].SetFloat("_BackWayPower", 0.0007f);
-
         StartCoroutine(StartChangeHorizontal());
         StartCoroutine(StartChangeVertical());
         StartCoroutine(StartChangePlayerSpeedMove());
